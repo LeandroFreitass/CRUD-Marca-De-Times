@@ -1,4 +1,5 @@
 import Product from "../models/productModel.js";
+import Marca from "../models/marcaModel.js";
 
 export const getAllProducts = async (req, res) => {
     try {
@@ -23,6 +24,17 @@ export const getProductById = async (req, res) => {
     }
 
 }
+
+// //Para marcas
+// export const getAllMarcas = async (req, res) => {
+//     try {
+//         const marcas = await Marca.findAll();
+//         res.json(marcas);
+//     } catch (error) {
+//         res.json({ message: error.message });
+//     }
+
+// }
 
 export const createProduct = async (req, res) => {
     try {

@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Modal, Input } from "react-bootstrap";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function ProductList() {
@@ -26,27 +24,14 @@ function ProductList() {
       <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
         <div class="row ">
           <div class="col-sm-3 mt-5 mb-4 text-gred">
-            <div className="search">
-              <form class="form-inline">
-                <input
-                  class="form-control mr-sm-2"
-                  type="search"
-                  placeholder="Search Student"
-                  aria-label="Search"
-                />
-              </form>
-            </div>
           </div>
           <div
-            class="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred"
+            class="col-sm-4 offset-sm-2 mt-8 mb-2 text-gred"
             style={{ color: "green" }}
           >
             <h2>
-              <b>Lista de Cadastro</b>
+              <b>Lista de Produtos</b>
             </h2>
-          </div>
-          <div class="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
-            <Link  to="/add"><Button variant="primary">Cadastrar Produto</Button></Link>
           </div>
         </div>
         <div class="row">
@@ -56,7 +41,7 @@ function ProductList() {
                 <tr>
                   <th>ID</th>
                   <th>Nome</th>
-                  {/* <th>Marca</th> */}
+                  <th>Marca</th>
                   <th>Região</th>
                   {/* <th>Tamanho</th> */}
                   <th>Preço</th>
@@ -69,7 +54,7 @@ function ProductList() {
                   <tr key={product.id}>
                     <td>{index + 1}</td>
                     <td>{product.nametime}</td>
-                    {/* <td>{product.marca}</td> */}
+                    <td>{product.marcas}</td>
                     <td>{product.regioatime}</td>
                     {/* <td>{product.tamanho}</td> */}
                     <td>{product.price}</td>

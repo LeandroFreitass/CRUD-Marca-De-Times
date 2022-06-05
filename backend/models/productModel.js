@@ -9,6 +9,9 @@ const Product = db.define(
     nametime: {
       type: DataTypes.STRING,
     },
+    marcas: {
+      type: DataTypes.STRING,
+    },
     regioatime: {
       type: DataTypes.STRING,
     },

@@ -5,15 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 const AddMarca = () => {
   const [marca, setMarca] = useState("");
-  const [tamanho, setTamanho] = useState([]);
+
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    getMarcas();
+    getAllMarcas();
   }, []);
 
-  const getMarcas = async () => {
+  const getAllMarcas = async () => {
     const response = await axios.get("http://localhost:5000/marcas");
     setMarca(response.data);
   };
@@ -22,7 +22,6 @@ const AddMarca = () => {
     e.preventDefault();
     await axios.post("http://localhost:5000/marcas", {
       marca: marca,
-      tamanho: tamanho,
     });
     navigate("/");
   };
@@ -40,19 +39,9 @@ const AddMarca = () => {
               <input
                 type="text"
                 class="form-control"
-                placeholder="RegiaoTime"
+                placeholder="Marcas"
                 value={marca}
                 onChange={(e) => setMarca(e.target.value)}
-              />
-            </div>
-            <div class="form-group mt-3">
-              <label className="label">Tamanho Camisa</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="RegiaoTime"
-                value={tamanho}
-                onChange={(e) => setTamanho(e.target.value)}
               />
             </div>
             <button class="btn btn-success mt-4">Adicionar</button>

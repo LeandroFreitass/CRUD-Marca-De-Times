@@ -4,14 +4,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
-  const [marcas, setmMarcas] = useState([]);
   const [nametime, setNametime] = useState("");
+  const [marcas, setMarcas] = useState([]);
   const [regioatime, setRegioatime] = useState("");
   const [quantidade, setQuantidade] = useState("");
   const [price, setPrice] = useState("");
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     getMarcas();
@@ -19,14 +17,14 @@ const AddProduct = () => {
 
   const getMarcas = async () => {
     const response = await axios.get("http://localhost:5000/marcas");
-    setmMarcas(response.data);
+    setMarcas(response.data);
   };
 
   const saveProduct = async (e) => {
-    e.preventDefault(); //agar page tidak reload
+    e.preventDefault();
     await axios.post("http://localhost:5000/products", {
       nametime: nametime,
-      // marca: marca,
+      marcas: marcas,
       regioatime: regioatime,
       // tamanho: tamanho,
       quantidade: quantidade,
@@ -55,7 +53,18 @@ const AddProduct = () => {
             </div>
             <div class="form-group mt-3">
               <label className="label">Marca Time</label>
-              {/* <option></option> */}
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  Marcas
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  {marcas.map((marca) => (
+                    <Dropdown.Item key={marca.id}>{marca.marcas}</Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+                
+              </Dropdown>
             </div>
             <div class="form-group mt-3">
               <label className="label">Região Time</label>
@@ -67,20 +76,10 @@ const AddProduct = () => {
                 onChange={(e) => setRegioatime(e.target.value)}
               />
             </div>
-            <div class="form-group mt-3">
-              <label className="label">Tamanho Camisa</label>
-              {marcas.map((marca, index) => (
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  Dropdown Button
-                </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-               
-                </Dropdown.Menu>
-              </Dropdown>
-              ))}
-            </div>
+            {/* <div class="form-group mt-3">
+              <label className="label">Tamanho Camisa</label>
+            </div> */}
 
             <div class="form-group mt-3">
               <label className="label">Preço</label>

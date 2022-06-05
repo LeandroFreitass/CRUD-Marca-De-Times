@@ -5,13 +5,15 @@ import {
     createProduct,
     getProductById,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    // getAllMarcas
  } from "../controllers/products.js";
 
 const product = express.Router();
 
 
 product.get('/', getAllProducts);
+// product.get('/marcas2', getAllMarcas);
 product.get('/:id', getProductById);
 product.post('/', createProduct);
 product.patch('/:id', updateProduct);
