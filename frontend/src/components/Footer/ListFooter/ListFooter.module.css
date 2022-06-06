@@ -1,0 +1,22 @@
+.listFooter{
+    height: 100%;
+    max-width: calc(100%/4);
+}
+
+.listFooter h1{
+    font-size: 1.4rem;
+    font-family: 'ProximaNova-SemiBold';
+
+    padding-bottom: 1.5rem;
+}
+
+.listFooter__item{
+    font-family: 'ProximaNova-Regular';
+    padding-bottom: .5rem;
+
+    color: var(--greyDark);
+}
+
+.listFooter__item:hover{
+    color: var(--grey);
+}

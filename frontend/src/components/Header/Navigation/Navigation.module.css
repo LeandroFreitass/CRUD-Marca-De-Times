@@ -1,0 +1,29 @@
+.navigation{
+    width: 900px;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+
+}
+
+.navigation ul{
+    height: 100%;
+    width: 100%;
+
+    padding: 0 3vw;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navigation ul li{
+    color: inherit;
+}
+
+.navigation ul li:hover{
+    opacity: .8;
+}

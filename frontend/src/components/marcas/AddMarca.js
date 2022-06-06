@@ -1,6 +1,7 @@
 import { Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const AddMarca = () => {
@@ -29,6 +30,16 @@ const AddMarca = () => {
   return (
     <div className="model_box">
       <Modal show={true}>
+      <Link to="/">
+          <button
+            type="button"
+            class="btn btn-primary"
+            disabled
+            aria-label="Close"
+          >
+            Fechar
+          </button>
+        </Link>
         <Modal.Header>
           <Modal.Title>Cadastro de Produtos</Modal.Title>
         </Modal.Header>

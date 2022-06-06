@@ -1,6 +1,9 @@
 import { Button, Modal, Dropdown } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
@@ -35,13 +38,28 @@ const AddProduct = () => {
 
   return (
     <div className="model_box">
-      <Modal show={true}>
+      <Modal
+        show={true}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Link to="/">
+          <button
+            type="button"
+            class="btn btn-primary"
+            disabled
+            aria-label="Close"
+          >
+            Fechar
+          </button>
+        </Link>
         <Modal.Header>
           <Modal.Title>Cadastro de Produtos</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form class="form-group" onSubmit={saveProduct}>
-            <div class="form-group">
+          <form class="row g-2" onSubmit={saveProduct}>
+            <div class="col-md-6">
               <label className="label">Nome Time</label>
               <input
                 type="name"
@@ -51,10 +69,10 @@ const AddProduct = () => {
                 onChange={(e) => setNametime(e.target.value)}
               />
             </div>
-            <div class="form-group mt-3">
+            <div class="col-md-6">
               <label className="label">Marca Time</label>
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
+              <Dropdown class="col-md-6">
+                <Dropdown.Toggle variant="success" id="dropdown-basic" size="lg">
                   Marcas
                 </Dropdown.Toggle>
 
@@ -63,10 +81,10 @@ const AddProduct = () => {
                     <Dropdown.Item key={marca.id}>{marca.marcas}</Dropdown.Item>
                   ))}
                 </Dropdown.Menu>
-                
               </Dropdown>
             </div>
-            <div class="form-group mt-3">
+
+            <div class="col-md-6">
               <label className="label">Região Time</label>
               <input
                 type="text"
@@ -76,12 +94,22 @@ const AddProduct = () => {
                 onChange={(e) => setRegioatime(e.target.value)}
               />
             </div>
+            <div class="col-md-6">
+              <label className="label">Marca Time</label>
+              <Dropdown >
+                <Dropdown.Toggle variant="success" id="dropdown-basic" size="lg">
+                  Marcas
+                </Dropdown.Toggle>
 
-            {/* <div class="form-group mt-3">
-              <label className="label">Tamanho Camisa</label>
-            </div> */}
+                <Dropdown.Menu>
+                  {marcas.map((marca) => (
+                    <Dropdown.Item key={marca.id}>{marca.marcas}</Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
 
-            <div class="form-group mt-3">
+            <div class="col-md-6">
               <label className="label">Preço</label>
               <input
                 type="text"
@@ -92,7 +120,7 @@ const AddProduct = () => {
               />
             </div>
 
-            <div class="form-group mt-3">
+            <div class="col-md-6">
               <label className="label">Quantidade</label>
               <input
                 type="text"
@@ -102,10 +130,9 @@ const AddProduct = () => {
                 onChange={(e) => setQuantidade(e.target.value)}
               />
             </div>
-
-            <button class="btn btn-success mt-4">Adicionar</button>
           </form>
         </Modal.Body>
+        <Button variant="primary" size="lg">Adicionar</Button>
       </Modal>
     </div>
   );
