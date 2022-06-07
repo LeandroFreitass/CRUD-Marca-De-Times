@@ -1,9 +1,9 @@
-import Regiao from "../models/regiaoModel.js";
+import Regioe from "../models/regiaoModel.js";
 
 export const getAllRegiaos = async (req, res) => {
     try {
-        const regiaos = await Regiao.findAll();
-        res.json(regiaos);
+        const regioes = await Regioe.findAll();
+        res.json(regioes);
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -12,12 +12,12 @@ export const getAllRegiaos = async (req, res) => {
 
 export const getRegiaoById = async (req, res) => {
     try {
-        const regiao = await Regiao.findAll({
+        const regioe = await Regioe.findAll({
             where: {
                 id: req.params.id
             }
         });
-        res.json(regiao[0]);
+        res.json(regioe[0]);
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -26,7 +26,7 @@ export const getRegiaoById = async (req, res) => {
 
 export const createRegiao = async (req, res) => {
     try {
-        await Regiao.create(req.body);
+        await Regioe.create(req.body);
         res.json({
             "message": "Regiao Created"
         });
@@ -38,7 +38,7 @@ export const createRegiao = async (req, res) => {
 
 export const updateRegiao = async (req, res) => {
     try {
-        await Regiao.update(req.body, {
+        await Regioe.update(req.body, {
             where: {
                 id: req.params.id
             }
@@ -54,7 +54,7 @@ export const updateRegiao = async (req, res) => {
 
 export const deleteRegiao = async (req, res) => {
     try {
-        await Tamanho.destroy({
+        await Regioe.destroy({
             where: {
                 id: req.params.id
             }

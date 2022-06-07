@@ -6,7 +6,7 @@ const { DataTypes } = Sequelize;
 const Regiao = db.define(
   "regiaos_tam",
   {
-    regioesTimes: {
+    regioes: {
       type: DataTypes.STRING,
     },
   },

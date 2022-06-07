@@ -8,7 +8,7 @@ import Input from "../Input";
 const AddProduct = () => {
   const [nametime, setNametime] = useState("");
   const [marcas, setMarcas] = useState([]);
-  const [regioes, setRegioes] = useState([]);
+  const [regioatime, setRegioatime] = useState("");
   const [quantidade, setQuantidade] = useState("");
   const [price, setPrice] = useState("");
   const navigate = useNavigate();
@@ -22,26 +22,17 @@ const AddProduct = () => {
     setMarcas(response.data);
   };
 
-
-  useEffect(() => {
-    getRegioe();
-  }, []);
-
-  const getRegioe = async () => {
-    const response = await axios.get("http://localhost:5000/regioes");
-    setRegioes(response.data);
-  };
-
   const saveProduct = async (e) => {
     e.preventDefault();
     await axios.post("http://localhost:5000/products", {
       nametime: nametime,
       marcas: marcas,
-      regioes: regioes,
+      regioatime: regioatime,
+      // tamanho: tamanho,
       quantidade: quantidade,
       price: price,
     });
-    navigate("/listagemProdutos");
+    navigate("/");
   };
 
   return (
@@ -58,33 +49,30 @@ const AddProduct = () => {
           />
         </div>
         <div class="col-md-6">
-          <label className="label">Região Times</label>
+          <label className="label">Marca Time</label>
           <Dropdown class="col-md-6">
             <Dropdown.Toggle variant="success" id="dropdown-basic" size="lg">
-               Região Times
+              Marcas
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              {regioes.map((regioe) => (
-                <Dropdown.Item key={regioe.id}>{regioe.marcas}</Dropdown.Item>
+              {marcas.map((marca) => (
+                <Dropdown.Item key={marca.id}>{marca.marcas}</Dropdown.Item>
               ))}
             </Dropdown.Menu>
           </Dropdown>
         </div>
 
-      
-
         <div class="col-md-6">
-          <label className="label">Preço</label>
-          <Input
+          <label className="label">Região Time</label>
+          <input
             type="text"
             class="form-control"
-            placeholder="Preço"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            placeholder="RegiaoTime"
+            value={regioatime}
+            onChange={(e) => setRegioatime(e.target.value)}
           />
         </div>
-
         <div class="col-md-6">
           <label className="label">Marca Time</label>
           <Dropdown>
@@ -98,6 +86,17 @@ const AddProduct = () => {
               ))}
             </Dropdown.Menu>
           </Dropdown>
+        </div>
+
+        <div class="col-md-6">
+          <label className="label">Preço</label>
+          <Input
+            type="text"
+            class="form-control"
+            placeholder="Preço"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
         </div>
 
         <div class="col-md-6">

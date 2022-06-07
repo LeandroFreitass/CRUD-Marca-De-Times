@@ -8,12 +8,12 @@ import {
     deleteRegiao
  } from "../controllers/regiao.js";
 
-const regioa = express.Router();
+const regioe = express.Router();
 
-regioa.get('/', getAllRegiaos);
-regioa.get('/:id', getRegiaoById);
-regioa.post('/', createRegiao);
-regioa.patch('/:id', updateRegiao);
-regioa.delete('/:id', deleteRegiao);
+regioe.get('/', getAllRegiaos);
+regioe.get('/:id', getRegiaoById);
+regioe.post('/', createRegiao);
+regioe.patch('/:id', updateRegiao);
+regioe.delete('/:id', deleteRegiao);
 
-export default regioa;
+export default regioe;
