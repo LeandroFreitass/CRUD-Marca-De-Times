@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from 'react-router-dom';
 
 function ProductList() {
   const [products, setProduct] = useState([]);
@@ -60,7 +61,9 @@ function ProductList() {
                     <td>{product.price}</td>
                     <td>{product.quantidade}</td>
                     <td>
-                    <a to={"/edit/" + product.id} data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <Link to={"/edit/" + product.id} data-toggle="tooltip">
+                        <i class="material-icons">&#xE254;</i>
+                      </Link>
                       <a
                         onClick={() => deleteProduct(product.id)}
                         data-toggle="tooltip"

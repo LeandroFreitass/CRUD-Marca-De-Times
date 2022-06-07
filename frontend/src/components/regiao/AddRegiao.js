@@ -1,4 +1,4 @@
-import { Modal } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const AddMarca = () => {
   const [regioes, setRegiao] = useState("");
-
 
   const navigate = useNavigate();
 
@@ -20,22 +19,33 @@ const AddMarca = () => {
 
   return (
     <div className="model_box">
-    
-          <Modal.Title>Cadastro de Regioes</Modal.Title>
-    
-          <form class="form-group" onSubmit={saveRegiao}>
-            <div class="form-group mt-3">
-              <label className="label">Marca Regioes</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Regioes"
-                value={regioes}
-                onChange={(e) => setRegiao(e.target.value)}
-              />
-            </div>
-            <button class="btn btn-success mt-4">Adicionar</button>
-          </form>
+      <Modal.Dialog size="md">
+        <Modal.Title>Cadastro de Regioes</Modal.Title>
+
+        <form class="form-group" onSubmit={saveRegiao}>
+          <div class="form-group mt-3">
+            <label className="label">Marca Regioes</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Regioes"
+              value={regioes}
+              onChange={(e) => setRegiao(e.target.value)}
+            />
+          </div>
+          <br />
+          <button
+            style={{
+              width: "100%",
+              backgroundColor: "blue",
+              color: "white",
+              height: "40px",
+            }}
+          >
+            Adicionar
+          </button>
+        </form>
+      </Modal.Dialog>
     </div>
   );
 };

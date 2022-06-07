@@ -1,8 +1,9 @@
-import { Button, Dropdown } from "react-bootstrap";
+import { Button, Dropdown, Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
+import InputMask from "react-input-mask";
 import Input from "../Input";
 
 const AddProduct = () => {
@@ -21,7 +22,6 @@ const AddProduct = () => {
     const response = await axios.get("http://localhost:5000/marcas");
     setMarcas(response.data);
   };
-
 
   useEffect(() => {
     getRegioe();
@@ -45,7 +45,8 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="model_box">
+    <Modal.Dialog  size="md">
+       <Modal.Title>Cadastro de Produtos</Modal.Title>
       <form class="row g-2" onSubmit={saveProduct}>
         <div class="col-md-6">
           <label className="label">Nome Time</label>
@@ -59,9 +60,9 @@ const AddProduct = () => {
         </div>
         <div class="col-md-6">
           <label className="label">Região Times</label>
-          <Dropdown class="col-md-6">
+          <Dropdown >
             <Dropdown.Toggle variant="success" id="dropdown-basic" size="lg">
-               Região Times
+              Região Times
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -71,8 +72,6 @@ const AddProduct = () => {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-
-      
 
         <div class="col-md-6">
           <label className="label">Preço</label>
@@ -102,19 +101,25 @@ const AddProduct = () => {
 
         <div class="col-md-6">
           <label className="label">Quantidade</label>
-          <input
+          <InputMask
+            mask="9999"
+            maskChar={null}
             type="text"
             class="form-control"
             placeholder="Quantidade"
             value={quantidade}
             onChange={(e) => setQuantidade(e.target.value)}
           />
-        </div>
-      </form>
-      <Button variant="primary" size="lg">
+        </div><br/>
+        <button style={{width: '100%', 
+        backgroundColor:'blue', 
+        color:'white', 
+        height:'40px',
+        borderRadius:'5px'}}>
         Adicionar
-      </Button>
-    </div>
+      </button>
+      </form>
+      </Modal.Dialog>
   );
 };
 export default AddProduct;

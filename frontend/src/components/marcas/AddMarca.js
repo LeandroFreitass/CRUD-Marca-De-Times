@@ -1,4 +1,4 @@
-import { Modal } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -21,8 +21,8 @@ const AddMarca = () => {
   return (
     <div className="model_box">
     
-          <Modal.Title>Cadastro de Produtos</Modal.Title>
-    
+          <Modal.Dialog  size="md">
+          <Modal.Title>Cadastro de Marcas</Modal.Title>
           <form class="form-group" onSubmit={saveMarca}>
             <div class="form-group mt-3">
               <label className="label">Marca Time</label>
@@ -33,9 +33,12 @@ const AddMarca = () => {
                 value={marca}
                 onChange={(e) => setMarca(e.target.value)}
               />
-            </div>
-            <button class="btn btn-success mt-4">Adicionar</button>
+            </div><br/>
+            <button style={{width: '100%', backgroundColor:'blue', color:'white', height:'40px'}}>
+        Adicionar
+      </button>
           </form>
+    </Modal.Dialog>
     </div>
   );
 };

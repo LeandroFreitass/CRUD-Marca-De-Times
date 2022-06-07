@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from 'react-router-dom';
 
 function MarcaList() {
   const [marcas, setMarca] = useState([]);
@@ -50,9 +51,10 @@ function MarcaList() {
                     <td>{index + 1}</td>
                     <td>{marca.marca}</td>
                     <td>
-                      <a to={"/edit/" + marca.id} data-toggle="tooltip">
+                      <Link to={"/edit/" + marca.id} data-toggle="tooltip">
                         <i class="material-icons">&#xE254;</i>
-                      </a>
+                      </Link>
+                      
                       <a
                         onClick={() => deleteMarca(marca.id)}
                         data-toggle="tooltip"

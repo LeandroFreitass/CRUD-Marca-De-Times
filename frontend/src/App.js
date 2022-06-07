@@ -6,6 +6,7 @@ import ProductList from "./components/products/ProductList";
 // Adicionar Produtos 
 import AddMarcas from "./components/marcas/AddMarca";
 import AddProduct from "./components/products/AddProduct";
+import EditProduct from "./components/marcas/EditMarca";
 
 // Adicionar Regioa 
 import AddRegiao from "./components/regiao/AddRegiao";
@@ -30,6 +31,9 @@ function App() {
             <Route exact path="/ListagemMarcas" element={<MarcaList />} />
             <Route exact path="/ListagemRegiao" element={<RegiaoList />} />
             <Route exact path="/ListagemProdutos" element={<ProductList />} />
+            <Route path="/edit/:id" element={<EditProduct />} />
+
+            path="/edit/:id" 
         </Routes>
     </Container>
     <Footer />
