@@ -20,11 +20,11 @@ const AddMarca = () => {
   return (
     <div className="model_box">
       <Modal.Dialog size="md">
-        <Modal.Title>Cadastro de Regioes</Modal.Title>
+        <Modal.Title>Cadastro de Estado</Modal.Title>
 
         <form class="form-group" onSubmit={saveRegiao}>
           <div class="form-group mt-3">
-            <label className="label">Marca Regioes</label>
+            <label className="label">Estado Time</label>
             <input
               type="text"
               class="form-control"

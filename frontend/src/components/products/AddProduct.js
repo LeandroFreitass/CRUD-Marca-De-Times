@@ -59,10 +59,10 @@ const AddProduct = () => {
           />
         </div>
         <div class="col-md-6">
-          <label className="label">Região Times</label>
+          <label className="label">Estado Times</label>
           <Dropdown >
             <Dropdown.Toggle variant="success" id="dropdown-basic" size="lg">
-              Região Times
+            Estado
             </Dropdown.Toggle>
 
             <Dropdown.Menu>

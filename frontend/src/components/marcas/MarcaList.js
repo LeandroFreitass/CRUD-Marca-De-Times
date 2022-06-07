@@ -51,7 +51,7 @@ function MarcaList() {
                     <td>{index + 1}</td>
                     <td>{marca.marca}</td>
                     <td>
-                      <Link to={"/edit/" + marca.id} data-toggle="tooltip">
+                      <Link to={"/editMa/" + marca.id} data-toggle="tooltip">
                         <i class="material-icons">&#xE254;</i>
                       </Link>
                       
