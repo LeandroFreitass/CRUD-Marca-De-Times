@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 
 const EditMarca = () => {
   const [marca, setMarca] = useState("");
@@ -14,7 +15,7 @@ const EditMarca = () => {
       marca: marca,
      
     });
-    navigate("/");
+    navigate("/listagemMarcas");
   };
 
   useEffect(() => {
@@ -27,25 +28,27 @@ const EditMarca = () => {
     setMarca(response.data.marca);
 
   };
-
   return (
-    <div>
-      <form onSubmit={updateMarca}>
-  
-        <div className="field">
-          <label className="label">Marca Time</label>
-          <input
-            class="input"
-            type="text"
-            placeholder="MarcaTime"
-            value={marca}
-            onChange={(e) => setMarca(e.target.value)}
-          />
-        </div>
-        <div className="field">
-          <button className="button is-primary">Update</button>
-        </div>
-      </form>
+    <div className="model_box">
+    
+          <Modal.Dialog  size="md">
+          <Modal.Title>Cadastro de Marcas</Modal.Title>
+          <form class="form-group" onSubmit={updateMarca}>
+            <div class="form-group mt-3">
+              <label className="label">Marca Time</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Marcas"
+                value={marca}
+                onChange={(e) => setMarca(e.target.value)}
+              />
+            </div><br/>
+            <button style={{width: '100%', backgroundColor:'blue', color:'white', height:'40px'}}>
+        Adicionar
+      </button>
+          </form>
+    </Modal.Dialog>
     </div>
   );
 };

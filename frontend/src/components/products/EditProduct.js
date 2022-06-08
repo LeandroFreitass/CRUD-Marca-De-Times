@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { Button, Dropdown, Modal } from "react-bootstrap";
+import Input from "../Input";
+import InputMask from "react-input-mask";
 
 const EditProduct = () => {
   const [nametime, setNametime] = useState("");
-  const [marca, setMarca] = useState("");
-  const [regioatime, setRegioatime] = useState("");
+  const [marcas, setMarcas] = useState("");
+  const [regioes, setRegioes] = useState("");
   const [tamanho, setTamanho] = useState("");
   const [quantidade, setQuantidade] = useState("");
   const [price, setPrice] = useState("");
@@ -16,13 +19,13 @@ const EditProduct = () => {
     e.preventDefault(); //agar page tidak reload
     await axios.patch(`http://localhost:5000/products/${id}`, {
       nametime: nametime,
-      marca: marca,
-      regioatime: regioatime,
+      marcas: marcas,
+      regioes: regioes,
       tamanho: tamanho,
       quantidade: quantidade,
       price: price,
     });
-    navigate("/");
+    navigate("/listagemProdutos");
   };
 
   useEffect(() => {
@@ -32,86 +35,89 @@ const EditProduct = () => {
   const getProductById = async () => {
     const response = await axios.get(`http://localhost:5000/products/${id}`);
     setNametime(response.data.nametime);
-    setMarca(response.data.marca);
-    setRegioatime(response.data.regioatime);
+    setMarcas(response.data.marca);
+    setRegioes(response.data.regioatime);
     setTamanho(response.data.tamanho);
     setQuantidade(response.data.quantidade);
     setPrice(response.data.price);
   };
 
   return (
-    <div>
-      <form onSubmit={updateProduct}>
-        <div className="field">
+    <Modal.Dialog  size="md">
+       <Modal.Title>Cadastro de Produtos</Modal.Title>
+      <form class="row g-2" onSubmit={updateProduct}>
+        <div class="col-md-6">
           <label className="label">Nome Time</label>
           <input
-            class="input"
-            type="text"
-            placeholder="NomeTime"
+            type="name"
+            class="form-control"
+            placeholder="Nome Time"
             value={nametime}
             onChange={(e) => setNametime(e.target.value)}
           />
         </div>
+        <div class="col-md-6">
+          <label className="label">Estado Times</label>
+          <Dropdown >
+            <Dropdown.Toggle variant="success" id="dropdown-basic" size="lg">
+            Estado
+            </Dropdown.Toggle>
 
-        <div className="field">
-          <label className="label">Marca Time</label>
-          <input
-            class="input"
-            type="text"
-            placeholder="MarcaTime"
-            value={marca}
-            onChange={(e) => setMarca(e.target.value)}
-          />
+            <Dropdown.Menu>
+              {regioes.map((regioe) => (
+                <Dropdown.Item key={regioe.id}>{regioe.marcas}</Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
 
-        <div className="field">
-          <label className="label">Região Time</label>
-          <input
-            class="input"
-            type="text"
-            placeholder="RegiaoTime"
-            value={regioatime}
-            onChange={(e) => setRegioatime(e.target.value)}
-          />
-        </div>
-
-        <div className="field">
-          <label className="label">Tamanho Camisa</label>
-          <input
-            class="input"
-            type="text"
-            placeholder="TamanhoCamisa"
-            value={tamanho}
-            onChange={(e) => setTamanho(e.target.value)}
-          />
-        </div>
-
-        <div className="field">
+        <div class="col-md-6">
           <label className="label">Preço</label>
-          <input
-            class="input"
+          <Input
             type="text"
+            class="form-control"
             placeholder="Preço"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
 
-        <div className="field">
+        <div class="col-md-6">
+          <label className="label">Marca Time</label>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic" size="lg">
+              Marcas
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {marcas.map((marca) => (
+                <Dropdown.Item key={marca.id}>{marca.marcas}</Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+
+        <div class="col-md-6">
           <label className="label">Quantidade</label>
-          <input
-            class="input"
+          <InputMask
+            mask="9999"
+            maskChar={null}
             type="text"
+            class="form-control"
             placeholder="Quantidade"
             value={quantidade}
             onChange={(e) => setQuantidade(e.target.value)}
           />
-        </div>
-        <div className="field">
-          <button className="button is-primary">Update</button>
-        </div>
+        </div><br/>
+        <button style={{width: '100%', 
+        backgroundColor:'blue', 
+        color:'white', 
+        height:'40px',
+        borderRadius:'5px'}}>
+        Adicionar
+      </button>
       </form>
-    </div>
+      </Modal.Dialog>
   );
 };
 

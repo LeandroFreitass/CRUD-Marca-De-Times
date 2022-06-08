@@ -7,7 +7,7 @@ const ContactFooter = () => {
     const contactList = [
         {
             text: 'Rodovia Arthur Boigues Filho, 59 CEP: 19026-650 Presidente Prudente  SP ',
-            link: '/contact'
+            link: '/'
         },
     ]
 
