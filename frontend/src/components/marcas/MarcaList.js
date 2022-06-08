@@ -58,7 +58,7 @@ function MarcaList() {
                       <a
                         onClick={() => deleteMarca(marca.id)}
                         data-toggle="tooltip"
-                        style={{ color: "red" }}
+                        style={{ color: "red", cursor: 'pointer' }}
                       >
                         <i class="material-icons">&#xE872;</i>
                       </a>
