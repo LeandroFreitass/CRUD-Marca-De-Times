@@ -1,14 +1,14 @@
+import { Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
 
 const EditMarca = () => {
   const [marca, setMarca] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const updateMarca = async (e) => {
+  const onSubmitUpdate = async (e) => {
     e.preventDefault(); 
     await axios.patch(`http://localhost:5000/marcas/${id}`, {
 
@@ -33,7 +33,7 @@ const EditMarca = () => {
     
           <Modal.Dialog  size="md">
           <Modal.Title>Cadastro de Marcas</Modal.Title>
-          <form class="form-group" onSubmit={updateMarca}>
+          <form class="form-group" onSubmit={onSubmitUpdate}>
             <div class="form-group mt-3">
               <label className="label">Marca Time</label>
               <input

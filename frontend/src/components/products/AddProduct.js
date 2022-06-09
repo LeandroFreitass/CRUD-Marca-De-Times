@@ -1,29 +1,25 @@
-import { Dropdown, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
-import Input from "../Input";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const validationPost = yup.object().shape({
-  nametime: yup.string().required("O nome do time é obrigatório"),
-  marcas: yup.string().required("O preço é obrigatório"),
-  regioatime: yup.string().required("O preço é obrigatório"),
-  quantidade: yup.string().required("A quantidade é obrigatório"),
-  price: yup.string().required("O preço é obrigatório")
+  nametime: yup.string().required("O Preenchimento do nome do time é obrigatório").matches(/[A-Z]/, 'A primiera letra deve ser maiuscula'),
+  marcas: yup.string().required("O Preenchimento do preço é obrigatório"),
+  regioatime: yup.string().required("O Preenchimento do Estado é obrigatório"),
+  quantidade: yup.string().required("O Preenchimento da quantidade é obrigatório"),
+  price: yup.string().required("O Preenchimento do preço é obrigatório")
 })
 
 const AddProduct = () => {
-  // const [nametime, setNametime] = useState("");
   const [marcas, setMarcas] = useState([]);
   const [regioatime, setRegioes] = useState([]);
-  // const [quantidade, setQuantidade] = useState("");
-  // const [price, setPrice] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,7 +44,9 @@ const AddProduct = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(validationPost),
+  });
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -57,6 +55,7 @@ const AddProduct = () => {
     });
     navigate("/listagemProdutos");
   };
+  
 
   return (
     <Modal.Dialog size="md">
@@ -67,7 +66,9 @@ const AddProduct = () => {
           <input
             type="name"
             class="form-control"
+            size="10" maxlength="11" 
             placeholder="Nome Time"
+
             {...register("nametime")}
           />
           <p className="error-message">{errors.nametime?.message}</p>
@@ -90,6 +91,7 @@ const AddProduct = () => {
               </option>
             ))}
           </select>
+          <p className="error-message">{errors.regioatime?.message}</p>
         </div>
 
         <div class="col-md-6">
@@ -100,6 +102,7 @@ const AddProduct = () => {
             placeholder="Preço"
             {...register("price")}
           />
+          <p className="error-message">{errors.price?.message}</p>
         </div>
 
         <div
@@ -118,18 +121,20 @@ const AddProduct = () => {
               <option key={marca.id}>{marca.marca}</option>
             ))}
           </select>
+          <p className="error-message">{errors.marcas?.message}</p>
         </div>
 
         <div class="col-md-6">
           <label className="label">Quantidade</label>
           <InputMask
-            mask="9999"
+            mask="999"
             maskChar={null}
             type="text"
             class="form-control"
             placeholder="Quantidade"
             {...register("quantidade")}
           />
+          <p className="error-message">{errors.quantidade?.message}</p>
         </div>
         <br />
         <button

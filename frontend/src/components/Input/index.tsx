@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes, useCallback } from "react";
 
 import { currency } from "./masks";
 
-import "./styles.css";
+// import "./styles.css";
 
 const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({
   ...props
