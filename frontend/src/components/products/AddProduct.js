@@ -4,18 +4,27 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
+import Input from "../Input";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const validationPost = yup.object().shape({
-  nametime: yup.string().required("O Preenchimento do nome do time é obrigatório").matches(/[A-Z]/, 'A primiera letra deve ser maiuscula'),
+  nametime: yup
+    .string()
+    .required("O Preenchimento do nome do time é obrigatório")
+    .matches(/[A-Z]/, "A primiera letra deve ser maiuscula"),
   marcas: yup.string().required("O Preenchimento do preço é obrigatório"),
   regioatime: yup.string().required("O Preenchimento do Estado é obrigatório"),
-  quantidade: yup.string().required("O Preenchimento da quantidade é obrigatório"),
-  price: yup.string().required("O Preenchimento do preço é obrigatório")
-})
+  quantidade: yup
+    .string()
+    .required("O Preenchimento da quantidade é obrigatório"),
+  price: yup
+    .string()
+    .required("O Preenchimento do preço é obrigatório")
+    .matches(/\d+(?:[.,]\d{0,2})?/, "A primiera letra deve ser maiuscula"),
+});
 
 const AddProduct = () => {
   const [marcas, setMarcas] = useState([]);
@@ -51,19 +60,17 @@ const AddProduct = () => {
   const onSubmit = async (data) => {
     console.log(data);
     await axios.post("http://localhost:5000/products", {
-      ...data
+      ...data,
     });
     navigate("/listagemProdutos");
   };
-  
 
-  
-const maskPrice = (value) => {
-  return value
-    .replace(/\D/g, "")
-    .replace(/(\d)(\d{2})$/, "$1,$2")
-    .replace(/(?=(\d{3})+(\D))\B/g, ".");
-};
+  const maskPrice = (value) => {
+    return value
+      .replace(/\D/g, "")
+      .replace(/(\d)(\d{2})$/, "$1,$2")
+      .replace(/(?=(\d{3})+(\D))\B/g, ".");
+  };
 
   return (
     <Modal.Dialog size="md">
@@ -74,9 +81,9 @@ const maskPrice = (value) => {
           <input
             type="name"
             class="form-control"
-            size="10" maxlength="11" 
+            size="10"
+            maxlength="11"
             placeholder="Nome Time"
-
             {...register("nametime")}
           />
           <p className="error-message">{errors.nametime?.message}</p>
@@ -94,9 +101,7 @@ const maskPrice = (value) => {
           <select {...register("regioatime")} class="form-control" id="regiao">
             <option value="">Selecione:</option>
             {regioatime.map((regioe) => (
-              <option key={regioe.id} >
-                {regioe.regioes}
-              </option>
+              <option key={regioe.id}>{regioe.regioes}</option>
             ))}
           </select>
           <p className="error-message">{errors.regioatime?.message}</p>
@@ -109,6 +114,13 @@ const maskPrice = (value) => {
             class="form-control"
             placeholder="Preço"
             {...register("price")}
+            // ref={register({
+            //   required: "price",
+            //   pattern: {
+            //     value: /\$\d+(?:[.,]\d{0,2})?/,
+            //     message: "invalid price",
+            //   },
+            // })}
           />
           <p className="error-message">{errors.price?.message}</p>
         </div>
