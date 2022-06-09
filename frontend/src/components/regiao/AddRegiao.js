@@ -1,19 +1,29 @@
-import { Modal, Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { Modal } from "react-bootstrap";
+import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const validationPost = yup.object().shape({
+  regioes: yup.string().required("Preenchimento obrigatório"),
+});
 
 const AddMarca = () => {
-  const [regioes, setRegiao] = useState("");
 
   const navigate = useNavigate();
 
-  const saveRegiao = async (e) => {
-    e.preventDefault();
-    await axios.post("http://localhost:5000/regioes", {
-      regioes: regioes,
-    });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationPost),
+  });
+
+  const onSubmit = async (data) => {
+    await axios.post("http://localhost:5000/regioes", data);
     navigate("/listagemRegiao");
   };
 
@@ -22,16 +32,16 @@ const AddMarca = () => {
       <Modal.Dialog size="md">
         <Modal.Title>Cadastro de Estado</Modal.Title>
 
-        <form class="form-group" onSubmit={saveRegiao}>
+        <form class="form-group" onSubmit={handleSubmit(onSubmit)}>
           <div class="form-group mt-3">
             <label className="label">Estado Time</label>
             <input
               type="text"
               class="form-control"
-              placeholder="Regioes"
-              value={regioes}
-              onChange={(e) => setRegiao(e.target.value)}
+              placeholder="Estado Time"
+              {...register("regioes")}
             />
+             <p className="error-message">{errors.regioes?.message}</p>
           </div>
           <br />
           <button

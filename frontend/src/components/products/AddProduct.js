@@ -6,29 +6,25 @@ import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 import Input from "../Input";
 
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
-
 
 const validationPost = yup.object().shape({
   nametime: yup.string().required("O nome do time é obrigatório"),
-  quantidade: yup.string().required("A quantidade é obrigatório").max(9999, "A quantidade deve conter no maximo 4 caracteres exemplo 9999 "),
-  price: yup.string().required("O preço é obrigatório").max(9999, "O preço precisa ter menos de 9999 caracteres")
+  marcas: yup.string().required("O preço é obrigatório"),
+  regioatime: yup.string().required("O preço é obrigatório"),
+  quantidade: yup.string().required("A quantidade é obrigatório"),
+  price: yup.string().required("O preço é obrigatório")
 })
 
 const AddProduct = () => {
-  const [nametime, setNametime] = useState("");
-  const [marcas, setMarcas] = useState([""]);
-  const [regioatime, setRegioes] = useState([""]);
-  const [quantidade, setQuantidade] = useState("");
-  const [price, setPrice] = useState("");
+  // const [nametime, setNametime] = useState("");
+  const [marcas, setMarcas] = useState([]);
+  const [regioatime, setRegioes] = useState([]);
+  // const [quantidade, setQuantidade] = useState("");
+  // const [price, setPrice] = useState("");
   const navigate = useNavigate();
-
-
-
-
 
   useEffect(() => {
     getMarcas();
@@ -48,80 +44,80 @@ const AddProduct = () => {
     setRegioes(response.data);
   };
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(validationPost)
-})
-  const saveProduct = async (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    console.log(data);
     await axios.post("http://localhost:5000/products", {
-      nametime: nametime,
-      // marcas: marcas,
-      // regioatime: regioatime,
-      price: price,
-      quantidade: quantidade,
+      ...data
     });
     navigate("/listagemProdutos");
   };
 
-
-  
-  
-
   return (
-    <Modal.Dialog  size="md">
-       <Modal.Title>Cadastro de Produtos</Modal.Title>
-      <form class="row g-2" onSubmit={handleSubmit(saveProduct)}>
+    <Modal.Dialog size="md">
+      <Modal.Title>Cadastro de Produtos</Modal.Title>
+      <form class="row g-2" onSubmit={handleSubmit(onSubmit)}>
         <div class="col-md-6">
           <label className="label">Nome Time</label>
           <input
             type="name"
             class="form-control"
             placeholder="Nome Time"
-            value={nametime}
             {...register("nametime")}
-            onChange={(e) => setNametime(e.target.value)}
           />
           <p className="error-message">{errors.nametime?.message}</p>
         </div>
-        <div class="col-md-6">
-          <label className="label">Estado Times</label>
-          <Dropdown value={regioatime}  onChange={(e) => setRegioes(e.target.value)} >
-            <Dropdown.Toggle variant="success" id="dropdown-basic" size="lg">
-            Estado
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              {regioatime.map((regioe) => (
-                <Dropdown.Item  key={regioe.id}>{regioe.regioes}</Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
+        <div
+          class="col-md-6"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <label className="label" htmlFor="regiao">
+            Estado Times
+          </label>
+          <select {...register("regioatime")} class="form-control" id="regiao">
+            <option value="">Selecione:</option>
+            {regioatime.map((regioe) => (
+              <option key={regioe.id} >
+                {regioe.regioes}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div class="col-md-6">
           <label className="label">Preço</label>
-          <Input
+          <input
             type="text"
             class="form-control"
             placeholder="Preço"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            {...register("price")}
           />
         </div>
 
-        <div class="col-md-6">
-          <label className="label">Marca Time</label>
-          <Dropdown value={marcas} onChange={(e) => setRegioes(e.target.value)}>
-            <Dropdown.Toggle variant="success" id="dropdown-basic" size="lg">
-              Marcas
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              {marcas.map((marca) => (
-                <Dropdown.Item key={marca.id}  >{marca.marca}</Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
+        <div
+          class="col-md-6"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <label className="label" htmlFor="regiao">
+            Marcas
+          </label>
+          <select {...register("marcas")} class="form-control" id="marca">
+            <option value="">Selecione:</option>
+            {marcas.map((marca) => (
+              <option key={marca.id}>{marca.marca}</option>
+            ))}
+          </select>
         </div>
 
         <div class="col-md-6">
@@ -132,19 +128,23 @@ const AddProduct = () => {
             type="text"
             class="form-control"
             placeholder="Quantidade"
-            value={quantidade}
-            onChange={(e) => setQuantidade(e.target.value)}
+            {...register("quantidade")}
           />
-        </div><br/>
-        <button style={{width: '100%', 
-        backgroundColor:'blue', 
-        color:'white', 
-        height:'40px',
-        borderRadius:'5px'}}>
-        Adicionar
-      </button>
+        </div>
+        <br />
+        <button
+          style={{
+            width: "100%",
+            backgroundColor: "blue",
+            color: "white",
+            height: "40px",
+            borderRadius: "5px",
+          }}
+        >
+          Adicionar
+        </button>
       </form>
-      </Modal.Dialog>
+    </Modal.Dialog>
   );
 };
 export default AddProduct;
