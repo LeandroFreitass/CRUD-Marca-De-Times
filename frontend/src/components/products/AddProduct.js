@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 import Input from "../Input";
 
+import IntlCurrencyInput from "react-intl-currency-input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -20,11 +21,23 @@ const validationPost = yup.object().shape({
   quantidade: yup
     .string()
     .required("O Preenchimento da quantidade é obrigatório"),
-  price: yup
-    .string()
-    .required("O Preenchimento do preço é obrigatório")
-    .matches(/\d+(?:[.,]\d{0,2})?/, "A primiera letra deve ser maiuscula"),
+  price: yup.string().required("O Preenchimento do preço é obrigatório"),
+  // .matches(/[0-9]+,[0-9]{2}/g, " 0,01 (1 centavo) até 99999,99."),
 });
+
+const currencyConfig = {
+  locale: "pt-BR",
+  formats: {
+    number: {
+      BRL: {
+        style: "currency",
+        currency: "BRL",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      },
+    },
+  },
+};
 
 const AddProduct = () => {
   const [marcas, setMarcas] = useState([]);
@@ -109,7 +122,9 @@ const AddProduct = () => {
 
         <div class="col-md-6">
           <label className="label">Preço</label>
-          <input
+          <IntlCurrencyInput
+            currency="BRL"
+            config={currencyConfig}
             type="text"
             class="form-control"
             placeholder="Preço"

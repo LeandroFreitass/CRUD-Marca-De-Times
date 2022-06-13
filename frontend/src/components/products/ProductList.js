@@ -58,7 +58,8 @@ function ProductList() {
                     <td>{product.marcas}</td>
                     <td>{product.regioatime}</td>
                     {/* <td>{product.tamanho}</td> */}
-                    <td>{product.price}</td>
+                    {/* <td>{product.price}</td> */}
+                    <td>R$ {parseFloat(product.price).toFixed(2).replace(".", ",")}</td>
                     <td>{product.quantidade}</td>
                     <td>
                     <Link to={"/edit/" + product.id} data-toggle="tooltip">
