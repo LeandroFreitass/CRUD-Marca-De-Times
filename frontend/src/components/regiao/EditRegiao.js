@@ -1,20 +1,32 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
-const EditMarca = () => {
+const validationPost = yup.object().shape({
+  regioes: yup.string().required("Preenchimento obrigatório").matches(/[A-Z]/, 'A primiera letra deve ser maiuscula')
+});
+
+const EditEstado = () => {
   const [regioes, setRegiao] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const updateMarca = async (e) => {
-    e.preventDefault(); 
-    await axios.patch(`http://localhost:5000/regioes/${id}`, {
 
-      regioes: regioes,
-     
-    });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationPost),
+  });
+
+
+  const onSubmit = async (data) => {
+    await axios.patch(`http://localhost:5000/regioes/${id}`, data);
     navigate("/listagemRegiao");
   };
 
@@ -34,15 +46,14 @@ const EditMarca = () => {
       <Modal.Dialog size="md">
         <Modal.Title>Cadastro de Estado</Modal.Title>
 
-        <form class="form-group" onSubmit={updateMarca}>
+        <form class="form-group" onSubmit={handleSubmit(onSubmit)}>
           <div class="form-group mt-3">
             <label className="label">Estado Time</label>
             <input
               type="text"
               class="form-control"
               placeholder="Regioes"
-              value={regioes}
-              onChange={(e) => setRegiao(e.target.value)}
+              {...register("regioes")}
             />
           </div>
           <br />
@@ -62,4 +73,4 @@ const EditMarca = () => {
   );
 };
 
-export default EditMarca;
+export default EditEstado;

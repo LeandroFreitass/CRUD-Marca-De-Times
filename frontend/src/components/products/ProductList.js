@@ -62,9 +62,9 @@ function ProductList() {
                     <td>R$ {parseFloat(product.price).toFixed(2).replace(".", ",")}</td>
                     <td>{product.quantidade}</td>
                     <td>
-                    <Link to={"/edit/" + product.id} data-toggle="tooltip">
+                    {/* <Link to={"/edit/" + product.id} data-toggle="tooltip">
                         <i class="material-icons">&#xE254;</i>
-                      </Link>
+                      </Link> */}
                       <a
                         onClick={() => deleteProduct(product.id)}
                         data-toggle="tooltip"
