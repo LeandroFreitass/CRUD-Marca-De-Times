@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 import Input from "../Input";
 
+import MaskedInput from "react-maskedinput";
 import IntlCurrencyInput from "react-intl-currency-input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,12 +18,12 @@ const validationPost = yup.object().shape({
     .required("O Preenchimento do nome do time é obrigatório")
     .matches(/[A-Z]/, "A primiera letra deve ser maiuscula"),
   marcas: yup.string().required("O Preenchimento do preço é obrigatório"),
+  tamanhos: yup.string().required("O Preenchimento do preço é obrigatório"),
   regioatime: yup.string().required("O Preenchimento do Estado é obrigatório"),
   quantidade: yup
     .string()
     .required("O Preenchimento da quantidade é obrigatório"),
   price: yup.string().required("O Preenchimento do preço é obrigatório"),
-  // .matches(/[0-9]+,[0-9]{2}/g, " 0,01 (1 centavo) até 99999,99."),
 });
 
 const currencyConfig = {
@@ -42,6 +43,9 @@ const currencyConfig = {
 const AddProduct = () => {
   const [marcas, setMarcas] = useState([]);
   const [regioatime, setRegioes] = useState([]);
+  const [tamanhos, setTamanho] = useState([]);
+  const [formatMask, setFormatMask] = useState("99,99");
+  // const [price, setPrice] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,6 +66,16 @@ const AddProduct = () => {
     setRegioes(response.data);
   };
 
+  useEffect(() => {
+    getTamanho();
+  }, []);
+
+  const getTamanho = async () => {
+    const response = await axios.get("http://localhost:5000/tamanhos");
+    setTamanho(response.data);
+  };
+
+
   const {
     register,
     handleSubmit,
@@ -76,13 +90,6 @@ const AddProduct = () => {
       ...data,
     });
     navigate("/listagemProdutos");
-  };
-
-  const maskPrice = (value) => {
-    return value
-      .replace(/\D/g, "")
-      .replace(/(\d)(\d{2})$/, "$1,$2")
-      .replace(/(?=(\d{3})+(\D))\B/g, ".");
   };
 
   return (
@@ -119,26 +126,25 @@ const AddProduct = () => {
           </select>
           <p className="error-message">{errors.regioatime?.message}</p>
         </div>
-
-        <div class="col-md-6">
-          <label className="label">Preço</label>
-          <IntlCurrencyInput
-            currency="BRL"
-            config={currencyConfig}
-            type="text"
-            class="form-control"
-            placeholder="Preço"
-            {...register("price")}
-            // ref={register({
-            //   required: "price",
-            //   pattern: {
-            //     value: /\$\d+(?:[.,]\d{0,2})?/,
-            //     message: "invalid price",
-            //   },
-            // })}
-          />
-          <p className="error-message">{errors.price?.message}</p>
+        <div
+          class="col-md-6"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <label className="label" htmlFor="regiao">
+            Tamanhos
+          </label>
+          <select {...register("tamanho")} class="form-control" id="marca">
+            <option value="">Selecione:</option>
+            {tamanhos.map((tamanho) => (
+              <option key={tamanho.id}>{tamanho.tamanho}</option>
+            ))}
+          </select>
+          <p className="error-message">{errors.tamanhos?.message}</p>
         </div>
+       
 
         <div
           class="col-md-6"
@@ -158,6 +164,25 @@ const AddProduct = () => {
           </select>
           <p className="error-message">{errors.marcas?.message}</p>
         </div>
+
+
+        <div class="col-md-6">
+          <label className="label">Preço</label>
+          <IntlCurrencyInput
+           currency="BRL"
+           config={currencyConfig}
+           class="form-control"
+            mask={formatMask}
+            minLenght="3"
+            maskchar={null}
+            alwaysShowMask={true}
+            //pattern="$[9999].[99]"
+            //onChange={this.handlePrice}
+            {...register("price")}
+          />
+          <p className="error-message">{errors.price?.message}</p>
+        </div>
+
 
         <div class="col-md-6">
           <label className="label">Quantidade</label>

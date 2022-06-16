@@ -3,21 +3,21 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from 'react-router-dom';
 
-function ProductList() {
-  const [products, setProduct] = useState([]);
+function TamanhoList() {
+  const [tamanhos, setTamanho] = useState([]);
 
   useEffect(() => {
-    getProducts();
+    getMarcas();
   }, []);
 
-  const getProducts = async () => {
-    const response = await axios.get("http://localhost:5000/products");
-    setProduct(response.data);
+  const getMarcas = async () => {
+    const response = await axios.get("http://localhost:5000/tamanhos");
+    setTamanho(response.data);
   };
 
-  const deleteProduct = async (id) => {
-    await axios.delete(`http://localhost:5000/products/${id}`);
-    getProducts();
+  const deleteMarca = async (id) => {
+    await axios.delete(`http://localhost:5000/tamanhos/${id}`);
+    getMarcas();
   };
 
   return (
@@ -27,11 +27,11 @@ function ProductList() {
           <div class="col-sm-3 mt-5 mb-4 text-gred">
           </div>
           <div
-            class="col-sm-4 offset-sm-2 mt-8 mb-2 text-gred"
+            class="col-sm-5 offset-sm-1 mt-8 mb-4 text-gred"
             style={{ color: "green" }}
           >
             <h2>
-              <b>Lista de Produtos</b>
+              <b>Lista de Cadastro Marcas</b>
             </h2>
           </div>
         </div>
@@ -41,32 +41,22 @@ function ProductList() {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Nome</th>
-                  <th>Marca</th>
-                  <th>Região</th>
-                  {/* <th>Tamanho</th> */}
-                  <th>Preço</th>
-                  <th>Quantidade</th>
+                  <th>Tamanho</th>
                   <th>Ação</th>
                 </tr>
               </thead>
               <tbody>
-                {products.map((product, index) => (
-                  <tr key={product.id}>
+                {tamanhos.map((tamanho, index) => (
+                  <tr key={tamanho.id}>
                     <td>{index + 1}</td>
-                    <td>{product.nametime}</td>
-                    <td>{product.marcas}</td>
-                    <td>{product.regioatime}</td>
-                    {/* <td>{product.tamanho}</td> */}
-                    <td>R$ {product.price}</td>
-                    {/* <td>R$ {parseFloat(product.price).toFixed(2).replace(".", ",")}</td> */}
-                    <td>{product.quantidade}</td>
+                    <td>{tamanho.tamanho}</td>
                     <td>
-                    {/* <Link to={"/edit/" + product.id} data-toggle="tooltip">
+                      <Link to={"/editTa/" + tamanho.id} data-toggle="tooltip">
                         <i class="material-icons">&#xE254;</i>
-                      </Link> */}
+                      </Link>
+                      
                       <a
-                        onClick={() => deleteProduct(product.id)}
+                        onClick={() => deleteMarca(tamanho.id)}
                         data-toggle="tooltip"
                         style={{ color: "red", cursor: 'pointer' }}
                       >
@@ -84,4 +74,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default TamanhoList;

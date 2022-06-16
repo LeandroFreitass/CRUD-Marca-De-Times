@@ -3,8 +3,8 @@ import db from "../config/database.js";
 
 const { DataTypes } = Sequelize;
 
-const Regiao = db.define(
-  "regiaos_tam",
+const Tamanho = db.define(
+  "tamanho_tam",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -12,7 +12,7 @@ const Regiao = db.define(
       allowNull: false,
       primaryKey: true,
     },
-    regioes: {
+    tamanho: {
       type: DataTypes.STRING(55),
       allowNull: false,
     },
@@ -22,5 +22,5 @@ const Regiao = db.define(
   }
 );
 
-Regiao.sync({ force: false });
-export default Regiao;
+Tamanho.sync({ force: false });
+export default Tamanho;

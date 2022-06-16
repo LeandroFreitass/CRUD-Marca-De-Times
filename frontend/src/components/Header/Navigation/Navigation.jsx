@@ -7,28 +7,34 @@ const Navigation = () => {
     return (
         <nav className={style.navigation} >
             <ul>
-                <li>
+
+            <li>
                     <Link to='/'>Home</Link>
                 </li>
-
-                <li>
-                    <Link to='/marca'>Adicionar Marcas</Link>
-                </li>
-
-                <li>
-                    <Link to='/regioe'>Adicionar Regiao</Link>
-                </li>
-
-                <li>
-                    <Link to='/produtos'>Adicionar Produtos</Link>
-                </li>
-
+            <NavDropdown title="Adicionar Categorias" id="basic-nav-dropdown">
+                  <NavDropdown.Item as={Link} to="/marca">
+                  Adicionar Marcas
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/regioe">
+                  Adicionar Estados
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/tamanhos">
+                  Adicionar Tamnhos
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/produtos">
+                  Adicionar Produtos
+                  </NavDropdown.Item>
+                </NavDropdown>
+          
                 <NavDropdown title="Visão de Cadastros" id="basic-nav-dropdown">
                   <NavDropdown.Item as={Link} to="/listagemMarcas">
                     Listagem Marcas
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/listagemRegiao">
-                    Listagem Regioes
+                    Listagem Estados
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/listagemTamanhos">
+                    Listagem Tamanhos
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/listagemProdutos">
                     Listagem Produtos
