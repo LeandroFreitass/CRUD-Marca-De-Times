@@ -44,7 +44,7 @@ function ProductList() {
                   <th>Nome</th>
                   <th>Marca</th>
                   <th>Região</th>
-                  {/* <th>Tamanho</th> */}
+                  <th>Tamanho</th>
                   <th>Preço</th>
                   <th>Quantidade</th>
                   <th>Ação</th>
@@ -57,14 +57,13 @@ function ProductList() {
                     <td>{product.nametime}</td>
                     <td>{product.marcas}</td>
                     <td>{product.regioatime}</td>
-                    {/* <td>{product.tamanho}</td> */}
+                    <td>{product.tamanho}</td>
                     <td>R$ {product.price}</td>
-                    {/* <td>R$ {parseFloat(product.price).toFixed(2).replace(".", ",")}</td> */}
                     <td>{product.quantidade}</td>
                     <td>
-                    {/* <Link to={"/edit/" + product.id} data-toggle="tooltip">
+                    <Link to={"/edit/" + product.id} data-toggle="tooltip">
                         <i class="material-icons">&#xE254;</i>
-                      </Link> */}
+                      </Link>
                       <a
                         onClick={() => deleteProduct(product.id)}
                         data-toggle="tooltip"

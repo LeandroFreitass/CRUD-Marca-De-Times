@@ -1,51 +1,31 @@
-import { Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import InputMask from "react-input-mask";
-import Input from "../Input";
-
-import MaskedInput from "react-maskedinput";
-import IntlCurrencyInput from "react-intl-currency-input";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { Modal } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import InputMask from "react-input-mask";
 import * as yup from "yup";
 
 const validationPost = yup.object().shape({
   nametime: yup
     .string()
     .required("O Preenchimento do nome do time é obrigatório")
-    .matches(/[A-Z]/, "A primiera letra deve ser maiuscula"),
-  marcas: yup.string().required("O Preenchimento do preço é obrigatório"),
-  tamanhos: yup.string().required("O Preenchimento do preço é obrigatório"),
+    .matches(/^[A-Za-z-a-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{0,25}$/, "A primiera letra deve ser maiuscula"),
+  marcas: yup.string().required("O Preenchimento da marca é obrigatório"),
+  tamanho: yup.string().required("Preenchimento obrigatório"),
   regioatime: yup.string().required("O Preenchimento do Estado é obrigatório"),
-  quantidade: yup
-    .string()
-    .required("O Preenchimento da quantidade é obrigatório"),
-  price: yup.string().required("O Preenchimento do preço é obrigatório"),
+  quantidade: yup.string().required("O Preenchimento da quantidade é obrigatório"),
+  price: yup.string().required("O Preenchimento do preço é obrigatório").matches(/^[0-9]/, "somente numeros"),
 });
 
-const currencyConfig = {
-  locale: "pt-BR",
-  formats: {
-    number: {
-      BRL: {
-        style: "currency",
-        currency: "BRL",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      },
-    },
-  },
-};
+
 
 const AddProduct = () => {
   const [marcas, setMarcas] = useState([]);
   const [regioatime, setRegioes] = useState([]);
   const [tamanhos, setTamanho] = useState([]);
-  const [formatMask, setFormatMask] = useState("99,99");
-  // const [price, setPrice] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -101,8 +81,8 @@ const AddProduct = () => {
           <input
             type="name"
             class="form-control"
-            size="10"
-            maxlength="11"
+            size="20"
+            maxlength="21"
             placeholder="Nome Time"
             {...register("nametime")}
           />
@@ -126,6 +106,7 @@ const AddProduct = () => {
           </select>
           <p className="error-message">{errors.regioatime?.message}</p>
         </div>
+        
         <div
           class="col-md-6"
           style={{
@@ -168,16 +149,8 @@ const AddProduct = () => {
 
         <div class="col-md-6">
           <label className="label">Preço</label>
-          <IntlCurrencyInput
-           currency="BRL"
-           config={currencyConfig}
+          <input
            class="form-control"
-            mask={formatMask}
-            minLenght="3"
-            maskchar={null}
-            alwaysShowMask={true}
-            //pattern="$[9999].[99]"
-            //onChange={this.handlePrice}
             {...register("price")}
           />
           <p className="error-message">{errors.price?.message}</p>

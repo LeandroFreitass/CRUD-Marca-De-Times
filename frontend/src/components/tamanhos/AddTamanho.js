@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const validationPost = yup.object().shape({
-  tamanho: yup.string().required("Preenchimento obrigatório").matches(/[A-Z]/, 'A primiera letra deve ser maiuscula')
+  tamanho: yup.string().required("Preenchimento obrigatório").matches(/^[A-Za-z0-9]*$/, "somente numeros e letras")
 });
 
 const AddTamanho = () => {

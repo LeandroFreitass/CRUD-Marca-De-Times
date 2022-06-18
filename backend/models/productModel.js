@@ -14,20 +14,15 @@ const Product = db.define(
     },
     nametime: {
       type: DataTypes.STRING(55),
-      allowNull: false,
-      unique: true,
     },
-    marca: {
+    marcas: {
       type: DataTypes.STRING(55),
-      allowNull: false,
     },
     regioatime: {
       type: DataTypes.STRING(55),
-      allowNull: false,
     },
     tamanho: {
-      type: DataTypes.STRING(55),
-      allowNull: false,
+      type: DataTypes.STRING(2),
     },
     price: {
       type: DataTypes.DECIMAL(10,2),
@@ -38,7 +33,7 @@ const Product = db.define(
     },
     quantidade: {
       type: DataTypes.DOUBLE,
-      allowNull: false,
+   
     },
   },
   {

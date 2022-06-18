@@ -13,8 +13,9 @@ const Tamanho = db.define(
       primaryKey: true,
     },
     tamanho: {
-      type: DataTypes.STRING(55),
-      allowNull: false,
+      type: DataTypes.STRING(2),
+      allowNull: true,
+      unique: true,
     },
   },
   {

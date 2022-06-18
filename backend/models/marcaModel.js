@@ -14,7 +14,8 @@ const Marca = db.define(
     },
     marca: {
       type: DataTypes.STRING(55),
-      allowNull: false,
+      allowNull: true,
+      unique: true,
     },
   },
   {

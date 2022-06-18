@@ -19,7 +19,7 @@ const Navigation = () => {
                   Adicionar Estados
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/tamanhos">
-                  Adicionar Tamnhos
+                  Adicionar Tamanhos
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/produtos">
                   Adicionar Produtos

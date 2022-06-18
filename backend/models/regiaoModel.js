@@ -13,8 +13,9 @@ const Regiao = db.define(
       primaryKey: true,
     },
     regioes: {
-      type: DataTypes.STRING(55),
-      allowNull: false,
+      type: DataTypes.STRING(15),
+      allowNull: true,
+      unique: true,
     },
   },
   {
