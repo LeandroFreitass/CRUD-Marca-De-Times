@@ -4,6 +4,20 @@ import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import InputMask from "react-input-mask";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const validationPost = yup.object().shape({
+  nametime: yup
+    .string()
+    .required("O Preenchimento do nome do time é obrigatório")
+    .matches(/^[A-Za-z-a-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{0,25}$/, "A primiera letra deve ser maiuscula"),
+  marcas: yup.string().required("O Preenchimento da marca é obrigatório"),
+  tamanho: yup.string().required("Preenchimento obrigatório"),
+  regioatime: yup.string().required("O Preenchimento do Estado é obrigatório"),
+  quantidade: yup.string().required("O Preenchimento da quantidade é obrigatório"),
+  price: yup.string().required("O Preenchimento do preço é obrigatório").matches(/^[0-9]/, "somente numeros"),
+});
 
 const EditProduct = () => {
   const [nametime, setNametime] = useState("");
@@ -30,7 +44,9 @@ const EditProduct = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(validationPost),
+  });
 
 
   const getProductById = async () => {

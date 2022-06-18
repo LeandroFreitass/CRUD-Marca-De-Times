@@ -61,9 +61,9 @@ function ProductList() {
                     <td>R$ {product.price}</td>
                     <td>{product.quantidade}</td>
                     <td>
-                    <Link to={"/edit/" + product.id} data-toggle="tooltip">
+                    {/* <Link to={"/edit/" + product.id} data-toggle="tooltip">
                         <i class="material-icons">&#xE254;</i>
-                      </Link>
+                      </Link> */}
                       <a
                         onClick={() => deleteProduct(product.id)}
                         data-toggle="tooltip"
