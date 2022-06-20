@@ -31,7 +31,7 @@ function TamanhoList() {
             style={{ color: "green" }}
           >
             <h2>
-              <b>Lista de Cadastro Marcas</b>
+              <b>Lista de Cadastro Tamanhos</b>
             </h2>
           </div>
         </div>
