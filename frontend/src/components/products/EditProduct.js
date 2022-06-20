@@ -28,7 +28,7 @@ const EditProduct = () => {
 
   const updateProduct = async (e) => {
     e.preventDefault(); 
-    await axios.patch(`http://localhost:5000/products/${id}`, {
+    await axios.put(`http://localhost:5000/products/${id}`, {
       nametime: nametime,
       quantidade: quantidade,
       price: price,

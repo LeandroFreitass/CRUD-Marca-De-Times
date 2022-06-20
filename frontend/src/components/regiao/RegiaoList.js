@@ -31,7 +31,7 @@ function MarcaList() {
             style={{ color: "green" }}
           >
             <h2>
-              <b>Lista de Cadastro Marcas</b>
+              <b>Lista de Cadastro Estados</b>
             </h2>
           </div>
         </div>
@@ -41,7 +41,7 @@ function MarcaList() {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Regioes</th>
+                  <th>Estados</th>
                   <th>Ação</th>
                 </tr>
               </thead>

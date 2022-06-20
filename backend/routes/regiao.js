@@ -13,7 +13,7 @@ const regioe = express.Router();
 regioe.get('/', getAllRegiaos);
 regioe.get('/:id', getRegiaoById);
 regioe.post('/', createRegiao);
-regioe.patch('/:id', updateRegiao);
+regioe.put('/:id', updateRegiao);
 regioe.delete('/:id', deleteRegiao);
 
 export default regioe;

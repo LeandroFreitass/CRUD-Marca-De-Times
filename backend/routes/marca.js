@@ -13,7 +13,7 @@ const marca = express.Router();
 marca.get('/', getAllMarca);
 marca.get('/:id', getMarcaById);
 marca.post('/', createMarca);
-marca.patch('/:id', updateMarca);
+marca.put('/:id', updateMarca);
 marca.delete('/:id', deleteMarca);
 
 export default marca;

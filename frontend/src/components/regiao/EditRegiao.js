@@ -5,40 +5,60 @@ import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { ToastContainer, toast } from "react-toastify";
 
 const validationPost = yup.object().shape({
-  regioes: yup.string().required("Preenchimento obrigatório").matches(/[A-Z]/, 'A primiera letra deve ser maiuscula')
+  regioes: yup.string().required("Preenchimento obrigatório").matches(/^[A-Za-z-a-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{0,15}$/, 'A primiera letra deve ser maiuscula e minimo 15 letras')
 });
 
 const EditEstado = () => {
-  const [regioes, setRegiao] = useState("");
   const navigate = useNavigate();
-  const { id } = useParams();
 
+  const [loading, setLoading] = useState(false);
+
+  const { id } = useParams();
 
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationPost),
   });
 
-
   const onSubmit = async (data) => {
-    await axios.patch(`http://localhost:5000/regioes/${id}`, data);
+    await axios.put(`http://localhost:5000/regioes/${id}`, data);
     navigate("/listagemRegiao");
   };
 
   useEffect(() => {
-    getRegioeById();
-  }, []); 
+    if (!!id && !loading) {
+      getEstadoById(id);
+    }
+  }, []);
 
-  const getRegioeById = async () => {
-    const response = await axios.get(`http://localhost:5000/regioes/${id}`);
-
-    setRegiao(response.data.regioes);
-
+  const getEstadoById = async (brandId) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/regioes/${brandId}`
+      );
+      if (!!response.data) {
+        setValue("regioes", response.data.regioes);
+      } else {
+        toast("Estado não encontrada!");
+        setTimeout(() => navigate("/"), 2000);
+      }
+    } catch (err) {
+      console.log(err);
+      setTimeout(() =>
+        toast("Ocorreu um erro ao buscar a estado. Tente novamente!")
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -68,6 +88,7 @@ const EditEstado = () => {
             Adicionar
           </button>
         </form>
+        <ToastContainer />
       </Modal.Dialog>
     </div>
   );

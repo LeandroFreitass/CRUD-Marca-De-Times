@@ -16,7 +16,7 @@ product.get('/', getAllProducts);
 // product.get('/marcas2', getAllMarcas);
 product.get('/:id', getProductById);
 product.post('/', createProduct);
-product.patch('/:id', updateProduct);
+product.put('/:id', updateProduct);
 product.delete('/:id', deleteProduct);
 
 export default product;

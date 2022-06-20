@@ -13,7 +13,7 @@ const marca = express.Router();
 marca.get('/', getAllTamanho);
 marca.get('/:id', getTamanhoById);
 marca.post('/', createTamanho);
-marca.patch('/:id', updateTamanho);
+marca.put('/:id', updateTamanho);
 marca.delete('/:id', deleteTamanho);
 
 export default marca;
