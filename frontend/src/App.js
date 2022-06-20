@@ -12,7 +12,6 @@ import AddRegiao from "./components/regiao/AddRegiao";
 import AddTamanho from "./components/tamanhos/AddTamanho";
 
 // Editar
-import EditProduct from "./components/products/EditProduct";
 import EditMarca from "./components/marcas/EditMarca";
 import EditRegiao from "./components/regiao/EditRegiao";
 import EditTamanho from "./components/tamanhos/EditTamanho";
@@ -38,7 +37,6 @@ function App() {
             <Route exact path="/ListagemRegiao" element={<RegiaoList />} />
             <Route exact path="/ListagemProdutos" element={<ProductList />} />
             <Route exact path="/ListagemTamanhos" element={<TamanhoList />} />
-            <Route path="/edit/:id" element={<EditProduct />} />
             <Route path="/editMa/:id" element={<EditMarca />} />
             <Route path="/editRe/:id" element={<EditRegiao />} />
             <Route path="/editTa/:id" element={<EditTamanho />} />
